@@ -1,4 +1,4 @@
 # weather_api
 
-Create virtual env - python3 -m venv env
-Install requirements - pip3 install -r requirements.txt
+Create virtual env - <code>python3 -m venv env</code></br>
+Install requirements - <code>pip3 install -r requirements.txt</code></br>
