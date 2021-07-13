@@ -2,8 +2,11 @@ from django.db import models
 
 
 class BaseModel(models.Model):
-    create = models.DateTimeField('Create', auto_now_add=True)
-    update = models.DateTimeField('Update', auto_now=True)
+    create = models.DateTimeField('Create', auto_now_add=True, null=True)
+    update = models.DateTimeField('Update', auto_now=True, null=True)
+
+    class Meta:
+        abstract = True
 
 
 class Weather(BaseModel):
@@ -20,6 +23,3 @@ class Weather(BaseModel):
         verbose_name_plural = 'weathers'
         ordering = ('location',)
 
-
-
-# Create your models here.
