@@ -5,4 +5,4 @@ from .models import Weather
 class WeatherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weather
-        fields = ['id', 'location', 'loc_time', 'temperature']
+        fields = ['id', 'location', 'loc_time', 'temperature', 'weather_icons']
