@@ -13,7 +13,7 @@ class Weather(BaseModel):
     location = models.CharField('location', max_length=20)
     loc_time = models.DateTimeField('location time')
     temperature = models.FloatField('temperature')
-    weather_icons = models.CharField('weather icons', max_length=255)
+    weather_icons = models.CharField('weather icons', max_length=254)
 
     def __str__(self):
         return self.location
