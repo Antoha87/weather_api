@@ -9,10 +9,12 @@ from rest_framework.decorators import api_view
 
 from .models import Weather
 from .serializers import WeatherSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()
     serializer_class = WeatherSerializer
+    permission_classes = [IsAuthenticated]
 
 # Create your views here.

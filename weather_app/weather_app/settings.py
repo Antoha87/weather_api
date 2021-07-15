@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 
 
@@ -129,7 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/3.2/rcorsheadersef/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -154,3 +155,8 @@ REST_FRAMEWORK = {
 CITIES =['New Delhi', 'Ottawa', 'Kiev', 'Odessa', 'London', 'Moscow', 'Barcelona']
 
 ACCESS_KEY = '7f4a82cf2661ef1101b56c66d524dfc2'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
