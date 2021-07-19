@@ -18,11 +18,15 @@ from django.urls import path, include
 
 from rest_framework import routers
 from weather.views import WeatherViewSet
+from relations.views import CategoryViewSet
+from relations.views import GoodsViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 Router = routers.DefaultRouter()
 Router.register('weather', WeatherViewSet)
+Router.register('category', CategoryViewSet)
+Router.register('goods', GoodsViewSet)
 
 
 urlpatterns = [
