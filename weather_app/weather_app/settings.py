@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #our app
     'weather',
+    'relations',
 
     #3th party app
     'rest_framework',
