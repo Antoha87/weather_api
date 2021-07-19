@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 
 
@@ -154,3 +155,8 @@ REST_FRAMEWORK = {
 CITIES =['New Delhi', 'Ottawa', 'Kiev', 'Odessa', 'London', 'Moscow', 'Barcelona']
 
 ACCESS_KEY = '7f4a82cf2661ef1101b56c66d524dfc2'
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
+}
