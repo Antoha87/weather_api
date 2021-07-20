@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     #3th party app
     'rest_framework',
     'rest_framework_simplejwt',
+
+    #debug
+    'debug_toolbar',
 ]
 
 
@@ -60,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'weather_app.urls'
@@ -154,6 +158,10 @@ REST_FRAMEWORK = {
     )
 
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 CITIES =['New Delhi', 'Ottawa', 'Kiev', 'Odessa', 'London', 'Moscow', 'Barcelona']
 
