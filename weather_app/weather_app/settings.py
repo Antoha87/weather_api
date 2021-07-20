@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     #3th party app
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg',
 
     #debug
     'debug_toolbar',
