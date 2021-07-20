@@ -12,5 +12,5 @@ class GoodsViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().prefetch_related('categories')
     serializer_class = CategorySerializer
