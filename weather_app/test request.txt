@@ -1,1 +1,5 @@
-Check
+test_authenticated_weather
+login
+goto api/weather
+get data as JSON file
+compare received one with the one received from postman
