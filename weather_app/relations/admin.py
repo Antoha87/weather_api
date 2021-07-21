@@ -18,6 +18,7 @@ class GoodsAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_slug = {'slug': ('name',)}
+    filter_horizontal = ('tags',)
     inlines = [GoodsAdminInline]
 
 
