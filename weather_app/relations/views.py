@@ -1,9 +1,7 @@
 from django.shortcuts import render
-from .models import Category, Goods
-from .serializers import CategorySerializer, GoodsSerializer
+from .models import Category, Goods, Tag
+from .serializers import CategorySerializer, GoodsSerializer, TagSerializer
 from rest_framework import generics, status, viewsets
-
-# Create your views here.
 
 
 class GoodsViewSet(viewsets.ModelViewSet):
@@ -12,5 +10,10 @@ class GoodsViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all().prefetch_related('categories')
+    queryset = Category.objects.all().prefetch_related('goods')
     serializer_class = CategorySerializer
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all().prefetch_related('categories', 'categories__goods')
+    serializer_class = TagSerializer
