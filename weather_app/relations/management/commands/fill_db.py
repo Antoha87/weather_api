@@ -1,4 +1,4 @@
-from relations.models import Category, Goods
+from relations.models import Category, Goods, Tag
 from django.core.management.base import BaseCommand
 import random
 from faker import Faker
@@ -13,10 +13,15 @@ class Command(BaseCommand):
         fake = Faker()
 
         for _ in range(random.randint(5, 10)):
-            cat_name = fake.text(max_nb_chars=random.randint(8, 40))
-            cat = Category.objects.create(name=cat_name, slug=fake.slug(cat_name))
+            tag_name = fake.text(max_nb_chars=random.randint(8, 40))
+            tag = Tag.objects.create(name=tag_name)
 
             for _ in range(random.randint(5, 10)):
-                Goods.objects.create(name=fake.name(), category=cat, price=random.randint(1, 100))
+                cat_name = fake.text(max_nb_chars=random.randint(8, 40))
+                cat = Category.objects.create(name=cat_name, slug=fake.slug(cat_name))
+                cat.tags.set([tag])
+
+                for _ in range(random.randint(5, 10)):
+                    Goods.objects.create(name=fake.name(), category=cat, price=random.randint(1, 100))
 
         print("Finished filling db")
