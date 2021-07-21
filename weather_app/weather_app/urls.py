@@ -21,6 +21,7 @@ from rest_framework import routers
 from weather.views import WeatherViewSet
 from relations.views import CategoryViewSet
 from relations.views import GoodsViewSet
+from relations.views import TagViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from rest_framework import permissions
@@ -38,12 +39,11 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 
-
 Router = routers.DefaultRouter()
 Router.register('weather', WeatherViewSet)
 Router.register('category', CategoryViewSet)
 Router.register('goods', GoodsViewSet)
-
+Router.register('tag', TagViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
