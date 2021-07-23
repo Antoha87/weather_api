@@ -5,16 +5,16 @@ class MyComponent extends Component {
       super(props);
       this.state = {
         error: null,
-        goods: []
+        categories: []
       }
     }
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/api/goods/?format=json")
+    fetch("http://127.0.0.1:8000/api/category/?format=json")
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
-            goods: result
+            categories: result
           });
         },
         (error) => {
@@ -25,28 +25,46 @@ class MyComponent extends Component {
         }
       )
   }
-
+      handleDelete = catId => (
+        fetch('http://127.0.0.1:8000/api/category/' + catId, {method: 'DELETE'}).then((response) => {
+        }).then((result) => {
+            window.location.reload(false);
+        })
+      );
   render() {
-    const { error, goods } = this.state;
+    const { error, categories } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else {
       return (
-          <div class="col-8 offset-2">
-            <h1 class="d-inline">Goods list</h1><img class="w-25 h-25 d-inline" src="https://www.pngitem.com/pimgs/m/533-5331872_black-business-people-png-transparent-png.png"/>
+          <div class="col-10 offset-1">
+            <h1 class="d-inline">Human shop</h1><img class="w-25 h-25 d-inline" src="https://www.pngitem.com/pimgs/m/533-5331872_black-business-people-png-transparent-png.png"/>
             <table>
                 <tr class="border text-light bg-dark">
-                    <th class="col-3">ID</th><th class="col-3">NAME</th><th class="col-3">PRICE</th>
+                    <th class="col-1">ID</th><th class="col-2">NAME</th><th class="col-3">GOODS</th><th class="col-3">LAST WORDS</th>
                 </tr>
-                  {goods.map(good => (
-                  <tr class="border" key={good.id}>
-                       <td class="col-3">{good.id}</td><td class="col-3 bg-primary text-white">{good.name}</td><td class="col-3 text-success bg-warning">£{good.price}</td>
+                  {categories.map(category => (
+                  <tr class="border" key={category.id}>
+                       <td class="col-1">{category.id}
+                            <button class="btn btn-primary" id={category.id} onClick={() => {this.handleDelete(category.id)}}>BUY</button>
+                       </td>
+                       <td class="col-2">{category.name}</td>
+                       <td class="col-3"><ul>{category.goods.map(good => (
+                           <li>{good.name} ${good.price}</li>
+                       ))}</ul>num_of_goods: {category.num_of_goods}</td>
+                       <td class="col-3"><ul>{category.tags.map(tag => (
+                           <li>{tag.name}</li>
+                       ))}</ul>num_of_tags: {category.num_of_tags}</td>
                   </tr>
                   ))}
             </table>
           </div>
       );
     }
+  }
+
+  handleDelete(cat_id){
+       console.log(cat_id);
   }
 }
 
