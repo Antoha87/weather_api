@@ -1,0 +1,18 @@
+body {
+    background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.19cphoto.com%2Fwp-content%2Fuploads%2F2013%2F12%2F3eg191.jpg&f=1&nofb=1');
+}
+
+div#root {
+    background: url('https://media1.giphy.com/media/hrQnFqUKTXwSSvH8AI/giphy.gif?cid=ecf05e47bijl4yt8preglilk0i6292igerz3m9pukqorzrbc&rid=giphy.gif&ct=s')
+}
+
+table {
+    opacity: 0.7;
+    background: white;
+}
+
+/*
+td {
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_The_Gambia.svg/800px-Flag_of_The_Gambia.svg.png');
+}
+*/
