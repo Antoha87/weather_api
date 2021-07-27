@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Category, Goods, Tag
+from .models import Category, Goods, Tag, Cart
+from mptt.admin import DraggableMPTTAdmin
 
 
 class GoodsAdminInline(admin.StackedInline):
@@ -12,14 +13,27 @@ class CategoryAdminInline(admin.StackedInline):
     extra = 1
 
 
+class CartAdminInline(admin.StackedInline):
+    model = Cart.goods.through
+    extra = 1
+
+
 class GoodsAdmin(admin.ModelAdmin):
     list_display = ['name', 'category']
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CartAdmin(admin.ModelAdmin):
+    filter_vertical = ('goods',)
+    list_display = ['owner', 'delivery_type']
+
+
+class CategoryAdmin(DraggableMPTTAdmin):
     prepopulated_slug = {'slug': ('name',)}
     filter_horizontal = ('tags',)
     inlines = [GoodsAdminInline]
+    mptt_level_indent = 3
+    list_display = ['name']
+    list_display_links = ['name']
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -29,3 +43,4 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Goods, GoodsAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Cart, CartAdmin)
