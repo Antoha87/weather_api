@@ -21,7 +21,7 @@ class CurrencyData(models.Model):
 
 class Currency(models.Model):
     name = models.CharField('Name', max_length=50)
-    symbol = models.CharField('Symbol', max_length=10)
+    symbol = models.CharField('Symbol', max_length=50)
     price = models.FloatField('Price')
     change_30d = models.FloatField('Change 30d')
     change_60d = models.FloatField('Change 60d')
