@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     #our app
     'weather',
     'relations',
+    'currency',
 
     #3th party app
     'rest_framework',
@@ -100,13 +101,21 @@ WSGI_APPLICATION = 'weather_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'test.db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'test.db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'weather_db',
+        'USER': 'admin',
+        'PASSWORD': '1111',
+        'HOST': 'localhost',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -190,9 +199,11 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
-CITIES =['New Delhi', 'Ottawa', 'Kiev', 'Odessa', 'London', 'Moscow', 'Barcelona']
+CITIES = ['New Delhi', 'Ottawa', 'Kiev', 'Odessa', 'London', 'Moscow', 'Barcelona']
 
 ACCESS_KEY = '7f4a82cf2661ef1101b56c66d524dfc2'
+
+CRYPTOCURRENCY_ACCESS_KEY = '17f297c1-c190-4f50-9651-d0c4752ff327'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=2),

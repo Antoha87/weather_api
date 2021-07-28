@@ -7,10 +7,6 @@ from faker import Faker
 class Command(BaseCommand):
     help_text = 'fill db for Category and Goods'
 
-    @staticmethod
-    def get_random_obj():
-        pass
-
     def handle(self, *args, **options):
         print("Initiated fill_db")
 
