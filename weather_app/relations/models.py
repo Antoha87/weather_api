@@ -50,9 +50,9 @@ class Category(BaseModel, MPTTModel):
 
 
 class Goods(BaseModel, models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField('Name', db_index=True, max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='goods')
-    price = models.IntegerField('Price')
+    price = models.IntegerField('Price', db_index=True)
 
     def __str__(self):
         return "£" + str(self.price) + " | " + self.name
