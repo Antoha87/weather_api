@@ -1,14 +1,27 @@
 from django.shortcuts import render
 from .models import Category, Goods, Tag, Cart
 from .serializers import CategorySerializer, GoodsSerializer, TagSerializer, CartSerializer, CreateCart
-from rest_framework import generics, status, viewsets, filters
 from .permission import IsOwner
 from rest_framework.exceptions import PermissionDenied
+from rest_framework import generics, status, viewsets, filters
+from django_filters import rest_framework as rest_filters
+
+
+class GoodsFilter(rest_filters.FilterSet):
+    min_price = rest_filters.NumberFilter(field_name="price", lookup_expr='gte')
+    max_price = rest_filters.NumberFilter(field_name="price", lookup_expr='lte')
+    name = rest_filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = Goods
+        fields = ['min_price', 'max_price', 'name']
 
 
 class GoodsViewSet(viewsets.ModelViewSet):
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
+    filter_backends = (rest_filters.DjangoFilterBackend,)
+    filterset_class = GoodsFilter
 
 
 class CategoryViewSet(viewsets.ModelViewSet):

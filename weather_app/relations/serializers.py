@@ -19,11 +19,18 @@ class GoodsSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'price']
 
 
+class RecursiveField(serializers.Serializer):
+
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data
+
+
 class CategorySerializer(serializers.ModelSerializer):
     goods = GoodsSerializer(many=True, read_only=True)
     num_of_tags = serializers.SerializerMethodField()
     num_of_goods = serializers.SerializerMethodField()
-    sub_category = serializers.SerializerMethodField()
+    children = RecursiveField(many=True)
     tags = TagSerializer(many=True, read_only=True)
 
     def get_num_of_tags(self, obj):
@@ -32,12 +39,9 @@ class CategorySerializer(serializers.ModelSerializer):
     def get_num_of_goods(self, obj):
         return obj.goods.count()
 
-    def get_sub_category(self, obj):
-        return CategorySerializer(obj.get_children(), many=True).data
-
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'goods', 'num_of_goods', 'tags', 'num_of_tags', 'sub_category']
+        fields = ['id', 'name', 'slug', 'goods', 'num_of_goods', 'tags', 'num_of_tags', 'children']
 
 
 class CartSerializer(serializers.ModelSerializer):
