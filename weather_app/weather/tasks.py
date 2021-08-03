@@ -12,7 +12,7 @@ ACCESS_KEY = settings.ACCESS_KEY
 CITIES = settings.CITIES
 
 
-#@celery_app.task(name="get all need currencies")
+@celery_app.task(name="get all need currencies")
 def get_weather():
     logger.info("RUN CELERY TASK - Get weather from api.weatherstack.com")
     for city in CITIES:
@@ -27,7 +27,7 @@ def get_weather():
             data = json.loads(response.text)
             print(data)
             Weather.objects.get_or_create(location=data['location']['name'], loc_time=data['location']['localtime'],
-                                          temperature=data['current']['temperature'],\
+                                          temperature=data['current']['temperature'],
                                           weather_icons=data['current']['weather_icons'])
             logger.info("OK")
         else:

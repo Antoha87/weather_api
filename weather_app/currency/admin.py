@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CurrencyData, Currency
+from .models import CurrencyData, Currency, CurrencyAverage
 
 
 class CurrencyDataAdmin(admin.ModelAdmin):
@@ -14,5 +14,13 @@ class CurrencyAdmin(admin.ModelAdmin):
     list_filter = ('name',)
 
 
+class CurrencyAverageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'avg_value',)
+    search_fields = ('name',)
+    list_filter = ('name',)
+
+
 admin.site.register(CurrencyData, CurrencyDataAdmin)
 admin.site.register(Currency, CurrencyAdmin)
+admin.site.register(CurrencyAverage, CurrencyAverageAdmin)
+

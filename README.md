@@ -3,6 +3,10 @@
 
 ## Installation 
 
+Install `Docker`. Instructions can be found <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04">here</a>:
+
+<br>
+
 Create virtual env:  
   
 ```shell
@@ -10,35 +14,97 @@ $ python3 -m venv env
 ```
 
 <br> 
-  
-Install requirements:  
+
+Install `requirements.txt`:  
 ```shell
-$ pip3 install -r requirements.txt
+(env) $ pip3 install -r requirements.txt
 ```
-<br> 
+<br>
 
-## Weather API  
+Build `Docker` containers from images:
+```shell
+$ sudo docker-compose build
+```
+<br>
 
-Create redis user:
+Start `Docker` containers:
+```shell
+$ sudo docker-compose up
+```
+<br>
+
+## Available commands 
+
+Build `Docker` containers from images:
+```shell
+$ sudo docker-compose build
+```
+<br>
+
+Start `Docker` containers:
+```shell
+$ sudo docker-compose up
+```
+<br>
+
+Get list of all `Docker` images:
+```shell
+$ docker images
+```
+<br>
+
+Delete `Docker` image:
+```shell
+$ docker rmi <image_id>
+```
+<br>
+
+Get list of all `Docker` containers:
+```shell
+$ docker ps -a
+```
+<br>
+
+Delete `Docker` container:
+```shell
+$ docker rm <container_id>
+```
+<br>
+
+Fill database with data:
+```shell
+$ make fill_crypto_db
+```
+ > This action requires setting ```CRYPTOCURRENCY_ACCESS_KEY```  in ```settings.py``` file
+
+<br>
+
+Process parsed data:
+```shell
+$ make process_parsed
+```
+> The list of other available commands is available in `Makefile`
+> 
+
+## Legacy commands
+
+Create redis user <b>(legacy)</b>:
 ```
 set user:1 User
 ```
 ```
 set password:1 password
 ```
-
 <br>
 
-In weather_app run:
+In `weather_app` directory run <b>(legacy)</b>:
 ```
 celery -A weather_app worker --loglevel=info
 ```
 
 <br>
 
-## Currency API
-
-Install PostgreSQL:
+Install PostgreSQL <b>(legacy)</b>:
 ```shell
 $ sudo apt-get install postgresql
 ```
@@ -48,7 +114,7 @@ $ pip install psycopg2-binary
 
 <br>
 
-Setup and configure database:
+Setup and configure database <b>(legacy)</b>:
 ```
 $ sudo -u postgres psql
 ```
@@ -77,17 +143,4 @@ Exit SQL console:
 ```sql
 Postgres=# \q
 ```
-
 <br>
-
-Fill database with data:
-```shell
-$ python3 manage.py fill_crypto_db
-```
-
- > This action requires setting ```CRYPTOCURRENCY_ACCESS_KEY```  in ```settings.py``` file
-
-Process parsed data:
-```shell
-$ python3 manage.py process_parsed
-```

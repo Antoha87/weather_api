@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import CurrencyData, Currency
-from .serializers import CurrencyDataSerializer, CurrencySerializer
+from .models import CurrencyData, Currency, CurrencyAverage
+from .serializers import CurrencyDataSerializer, CurrencySerializer, CurrencyAverageSerializer
 from rest_framework import generics, status, viewsets, filters
 from django_filters import rest_framework as rest_filters
 from .models import STATUS_CHOICES
@@ -27,3 +27,8 @@ class CryptoDataViewSet(viewsets.ModelViewSet):
 class CryptoViewSet(viewsets.ModelViewSet):
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
+
+
+class CurrencyAverageViewSet(viewsets.ModelViewSet):
+    queryset = CurrencyAverage.objects.all()
+    serializer_class = CurrencyAverageSerializer
