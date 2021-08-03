@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/posgresql/data/
+    environment:
+      - POSTGRES_DB=weather_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1111
+  django:
+    build: .
+    command: bash -c "python3 /app/weather_app/manage.py makemigrations
+                      && python3 /app/weather_app/manage.py migrate
+                      && python3 /app/weather_app/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  frontend:
+    build: ./frontend/front_app
+    command: bash -c "npm start"
+    volumes:
+      - ./frontend/front_app:/app/frontend/front_app
+    ports:
+      - "3000:3000"
+volumes:
+  postgres_data:
