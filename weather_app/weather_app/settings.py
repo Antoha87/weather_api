@@ -113,7 +113,8 @@ DATABASES = {
         'NAME': 'weather_db',
         'USER': 'admin',
         'PASSWORD': '1111',
-        'HOST': 'localhost',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
