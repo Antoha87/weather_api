@@ -26,6 +26,7 @@ from relations.views import CreateCartViewSet
 from relations.views import TagViewSet
 from currency.views import CryptoDataViewSet
 from currency.views import CryptoViewSet
+from currency.views import CurrencyAverageViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from rest_framework import permissions
@@ -52,6 +53,7 @@ Router.register('create_cart', CreateCartViewSet)
 Router.register('tag', TagViewSet)
 Router.register('crypto_data', CryptoDataViewSet)
 Router.register('crypto', CryptoViewSet)
+Router.register('currency_average', CurrencyAverageViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

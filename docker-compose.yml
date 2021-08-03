@@ -27,5 +27,41 @@ services:
       - ./frontend/front_app:/app/frontend/front_app
     ports:
       - "3000:3000"
+  redis:
+    image: redis:alpine
+  celery:
+    restart: always
+    build:
+      context: .
+    command: bash -c "cd weather_app
+                      && celery -A weather_app worker --loglevel=info"
+    volumes:
+      - .:/app
+    environment:
+      - DB_HOST=db
+      - DB_NAME=weather_db
+      - DB_USER=admin
+      - DB_PASS=1111
+    depends_on:
+      - db
+      - redis
+      - django
+  celery-beat:
+    restart: always
+    build:
+      context: .
+    command: bash -c "cd weather_app
+             && celery -A weather_app beat --loglevel=info"
+    volumes:
+      - .:/app
+    environment:
+      - DB_HOST=db
+      - DB_NAME=weather_db
+      - DB_USER=admin
+      - DB_PASS=1111
+    depends_on:
+      - db
+      - redis
+      - django
 volumes:
   postgres_data:

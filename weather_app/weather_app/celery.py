@@ -7,4 +7,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'weather_app.settings')
 app = Celery(broker='amqp://Vova:020301@redis:6379', backend='rpc://')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
-app.conf.broker_heartbeat = 0
+# app.conf.broker_heartbeat = 0

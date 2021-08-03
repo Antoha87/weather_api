@@ -36,3 +36,16 @@ class Currency(models.Model):
         verbose_name = 'currency'
         verbose_name_plural = 'currencies'
         ordering = ('id',)
+
+
+class CurrencyAverage(models.Model):
+    name = models.CharField('Name', max_length=50)
+    avg_value = models.FloatField('Average value', null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'currency average'
+        verbose_name_plural = 'currencies averages'
+        ordering = ('id',)
