@@ -71,6 +71,24 @@ $ docker rm <container_id>
 ```
 <br>
 
+Delete all stopped `Docker` containers:
+```shel
+$ docker container prune
+```
+<br>
+
+Delete all unused `Docker` images:
+```shel
+$ docker image prune -a
+```
+<br>
+
+Delete all dangling `Docker` images:
+```shel
+$ docker image prune
+```
+<br>
+
 Fill database with data:
 ```shell
 $ make fill_crypto_db
