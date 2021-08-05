@@ -18,21 +18,30 @@ def task_dec(func):
 @task_dec
 def process_average():
     currency_count = Currency.objects.count() - 1
-    obj = Currency.objects.get(id=randint(0, currency_count))
-    print(f'Processing {obj}')
+    try:
+        obj = Currency.objects.get(id=randint(0, currency_count))
+    except ValueError:
+        print('Failed getting a "Currency" object, skipping... Database is probably empty!')
+    else:
+        print(f'Processing {obj}')
 
-    avg_value = mean([obj.change_30d, obj.change_60d, obj.change_90d])
-    print(f'Got value {avg_value}')
+        avg_value = mean([obj.change_30d, obj.change_60d, obj.change_90d])
+        print(f'Got value {avg_value}')
 
-    CurrencyAverage.objects.get_or_create(name=obj.name, avg_value=avg_value)
+        CurrencyAverage.objects.get_or_create(name=obj.name, avg_value=avg_value)
 
 
 @celery_app.task(name="get sum of currencies")
 @task_dec
 def sum_of_currencies():
     currency_count = Currency.objects.count() - 1
-    obj = Currency.objects.get(id=randint(0, currency_count))
-    print(f'Processing {obj}')
 
-    sum_value = sum([obj.change_30d, obj.change_60d, obj.change_90d])
-    print(f'Got value {sum_value}')
+    try:
+        obj = Currency.objects.get(id=randint(0, currency_count))
+    except ValueError:
+        print('Failed getting a "Currency" object, skipping... Database is probably empty!')
+    else:
+        print(f'Processing {obj}')
+
+        sum_value = sum([obj.change_30d, obj.change_60d, obj.change_90d])
+        print(f'Got value {sum_value}')

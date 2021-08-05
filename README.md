@@ -72,19 +72,19 @@ $ docker rm <container_id>
 <br>
 
 Delete all stopped `Docker` containers:
-```shel
+```shell
 $ docker container prune
 ```
 <br>
 
 Delete all unused `Docker` images:
-```shel
+```shell
 $ docker image prune -a
 ```
 <br>
 
 Delete all dangling `Docker` images:
-```shel
+```shell
 $ docker image prune
 ```
 <br>
@@ -116,8 +116,8 @@ set password:1 password
 <br>
 
 In `weather_app` directory run <b>(legacy)</b>:
-```
-celery -A weather_app worker --loglevel=info
+```shell
+$ celery -A weather_app worker --loglevel=info
 ```
 
 <br>
@@ -133,28 +133,27 @@ $ pip install psycopg2-binary
 <br>
 
 Setup and configure database <b>(legacy)</b>:
-```
+```shell
 $ sudo -u postgres psql
 ```
 ```sql
 Postgres=# CREATE DATABASE weather_db;
 ```
 ```sql
-Postgres=# CREATE USER admin WITH PASSWORD ‘1111‘;
+Postgres=# CREATE USER admin WITH PASSWORD '1111';
 ```
 ```sql
-Postgres=# ALTER ROLE admin SET client_encoding TO ‘utf8’;
+Postgres=# ALTER ROLE admin SET client_encoding TO 'utf8';
 ```
 ```sql
-Postgres=# ALTER ROLE admin SET default_transaction_isolation TO ‘read committed’;
+Postgres=# ALTER ROLE admin SET default_transaction_isolation TO 'read committed';
 ```
 ```sql
-Postgres=# ALTER ROLE admin SET timezone TO ‘UTC’;
+Postgres=# ALTER ROLE admin SET timezone TO 'UTC';
 ```
 ```sql
 Postgres=# GRANT ALL PRIVILEGES ON DATABASE weather_db TO admin;
 ```
-
 <br>
 
 Exit SQL console:

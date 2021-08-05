@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import CurrencyData, Currency, CurrencyAverage
-from .serializers import CurrencyDataSerializer, CurrencySerializer, CurrencyAverageSerializer
+from .serializers import CurrencyDataSerializer, CurrencySerializer, CurrencyCoinSerializer, CurrencyAverageSerializer
 from rest_framework import generics, status, viewsets, filters
 from django_filters import rest_framework as rest_filters
 from .models import STATUS_CHOICES
@@ -41,3 +41,10 @@ class CurrencyAverageViewSet(viewsets.ModelViewSet):
 def currency_sum(request):
     sum_of_currencies.delay()
     return JsonResponse({'message': 'Fleece Johnson is satisfied.'})
+
+
+class CurrencyListView(generics.ListAPIView):
+    serializer_class = CurrencyCoinSerializer
+
+    def get_queryset(self):
+        return Currency.objects.filter(name__icontains='coin')

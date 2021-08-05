@@ -24,3 +24,6 @@ fill_crypto_db:
 
 process_parsed:
 	docker-compose run --rm django python3 weather_app/manage.py process_parsed
+
+export_to_excel:
+	docker-compose run --rm django python3 weather_app/manage.py export_to_excel
