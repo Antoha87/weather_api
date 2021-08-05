@@ -28,6 +28,7 @@ from currency.views import CryptoDataViewSet
 from currency.views import CryptoViewSet
 from currency.views import CurrencyAverageViewSet
 from currency.views import currency_sum
+from currency.views import CurrencyListView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from rest_framework import permissions
@@ -63,6 +64,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('__debug__/', include(debug_toolbar.urls)),
     path('api/sum_of_currencies/', currency_sum),
+    path('api/currency_coin/', CurrencyListView.as_view(), name='kurwa_coin'),
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

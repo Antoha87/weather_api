@@ -16,6 +16,13 @@ class CurrencySerializer(serializers.ModelSerializer):
         fields = ['name', 'symbol', 'price', 'change_30d', 'change_60d', 'change_90d', 'max_supply', 'circulating_supply']
 
 
+class CurrencyCoinSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Currency
+        fields = ['name', 'symbol', 'price', 'change_30d', 'change_60d', 'change_90d', 'max_supply', 'circulating_supply']
+
+
 class CurrencyAverageSerializer(serializers.ModelSerializer):
 
     class Meta:
