@@ -79,7 +79,7 @@ MIDDLEWARE = [
 CELERY_BEAT_SCHEDULE = {
     'update_rates': {
         'task': 'currency.tasks.process_average',
-        'schedule': timedelta(seconds=15)
+        'schedule': timedelta(minutes=15)
     }
 }
 
@@ -169,7 +169,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # celery
 CELERY_BROKER_URL = 'redis://redis:6379'

@@ -1,5 +1,6 @@
 from celery import shared_task
-from .models import Currency, CurrencyAverage
+from django.core import mail
+from .models import Currency, CurrencyAverage, User
 from weather_app.celery import app as celery_app
 from random import randint
 from statistics import mean
@@ -45,3 +46,29 @@ def sum_of_currencies():
 
         sum_value = sum([obj.change_30d, obj.change_60d, obj.change_90d])
         print(f'Got value {sum_value}')
+
+
+@celery_app.task(name="send emails")
+@task_dec
+def send_emails_to_users():
+    users_count = User.objects.count() - 21
+
+    try:
+        start_user = randint(0, users_count)
+        users = Currency.objects.all()[start_user:start_user + 20]
+
+        connection = mail.get_connection()
+        connection.open()
+    except Exception as e:
+        print(e)
+    else:
+        for user in users:
+            print(user.email)
+            email = mail.EmailMessage(
+                'Test subject',
+                'Test body',
+                'admin@admin.com',
+                [user.email],
+                connection=connection
+            )
+            email.send()

@@ -49,3 +49,16 @@ class CurrencyAverage(models.Model):
         verbose_name = 'currency average'
         verbose_name_plural = 'currencies averages'
         ordering = ('id',)
+
+
+class User(models.Model):
+    name = models.CharField('Name', max_length=50)
+    email = models.CharField('Email', max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+        ordering = ('id',)
