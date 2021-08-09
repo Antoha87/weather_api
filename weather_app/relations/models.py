@@ -1,6 +1,6 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-import weather_app.settings as settings
+from django.utils.html import mark_safe
 import uuid
 
 
@@ -53,6 +53,13 @@ class Goods(BaseModel, models.Model):
     name = models.CharField('Name', db_index=True, max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='goods')
     price = models.IntegerField('Price', db_index=True)
+    image = models.ImageField(upload_to='image', null=True, blank=True)
+
+    @property
+    def thumbnail_preview(self):
+        if self.image:
+            return mark_safe('<img src="{}" width="300" height="300" />'.format(self.image))
+        return ""
 
     def __str__(self):
         return "£" + str(self.price) + " | " + self.name

@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 import debug_toolbar
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from graphene_django.views import GraphQLView
 
 from rest_framework import routers
 from weather.views import WeatherViewSet
@@ -34,7 +36,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -66,6 +69,8 @@ urlpatterns = [
     path('api/sum_of_currencies/', currency_sum),
     path('api/currency_coin/', CurrencyListView.as_view(), name='kurwa_coin'),
 
+    path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

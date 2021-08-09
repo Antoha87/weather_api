@@ -11,7 +11,8 @@ def task_dec(func):
     @wraps(func)
     def wrapper():
         print(f'Starting task "{func.__name__}"')
-        return func()
+        func()
+        print(f'Finished task "{func.__name__}"')
     return wrapper
 
 

@@ -104,6 +104,118 @@ $ make process_parsed
 > The list of other available commands is available in `Makefile`
 > 
 
+## GraphQL
+
+`GraphQL` module can be accessed by going to `/graphql` link.
+
+<br>
+
+### Writing queries
+
+For example, to get all `shawarmas`, we can use this query:
+```graphql
+query get_shawarmas {
+  allShawarmas{
+    edges {
+      node {
+        id
+        name
+        weight
+        price
+        ingredients {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+
+```
+
+The expected result is:
+```json
+{
+  "data": {
+    "allShawarmas": {
+      "edges": [
+        {
+          "node": {
+            "id": "U2hhd2FybWFOb2RlOjE=",
+            "name": "Шаурма восточная с курицей",
+            "weight": 335,
+            "price": 93,
+            "ingredients": [
+              {
+                "id": "1",
+                "name": "огурец соленый"
+              },
+              {
+                "id": "2",
+                "name": "лаваш арабский"
+              },
+              {
+                "id": "3",
+                "name": "мясо куриное"
+              },
+              {
+                "id": "4",
+                "name": "чесночный соус"
+              },
+              {
+                "id": "5",
+                "name": "зелень"
+              }
+            ]
+          }
+        },
+        ...
+```
+<br>
+
+We can filter our result set. For example, to get all `shawarmas`, whose name contain a `<string>`, we can use this query:
+```graphql
+query get_shawarmas {
+  allShawarmas(name_Icontains: "<string>") {
+    edges {
+      node {
+        id
+        name
+        weight
+        price
+        ingredients {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+```
+<br>
+
+To get <i>specific</i> `shawarma`, we can use this query:
+```graphql
+query get_shawarmas {
+  shawarma(id: "U2hhd2FybWFOb2RlOjE="){
+    id
+    name
+    weight
+    price
+  }
+}
+```
+<br>
+
+Here is the list of all available lookup expressions and examples:
+```graphql
+(name: "курица")            # Exact search
+(name_Icontains: "курица")  # Contains
+(weight_Lt: 400)            # Less than
+(price_Gt: 100)             # Greater than
+```
+
+
 ## Legacy commands
 
 Create redis user <b>(legacy)</b>:
