@@ -1,6 +1,9 @@
 amqp==5.0.6
+aniso8601==7.0.0
 asgiref==3.4.1
+beautifulsoup4==4.9.3
 billiard==3.6.4.0
+bs4==0.0.1
 celery==5.1.2
 certifi==2021.5.30
 cffi==1.14.6
@@ -12,6 +15,7 @@ click-repl==0.2.0
 coreapi==2.3.3
 coreschema==0.0.4
 cryptography==3.4.7
+da-vinci==0.3.0
 defusedxml==0.7.1
 Django==3.2.5
 django-cors-headers==3.7.0
@@ -26,7 +30,12 @@ djangorestframework-simplejwt==4.7.2
 djoser==2.1.0
 drf-yasg==1.20.0
 Faker==8.10.1
+graphene==2.1.9
+graphene-django==2.15.0
+graphql-core==2.3.2
+graphql-relay==2.0.1
 idna==2.10
+image==1.5.33
 inflection==0.5.1
 itypes==1.2.0
 Jinja2==3.0.1
@@ -35,6 +44,8 @@ MarkupSafe==2.0.1
 oauthlib==3.1.1
 openapi-codec==1.3.2
 packaging==21.0
+Pillow==8.3.1
+promise==2.3
 prompt-toolkit==3.0.19
 psycopg2-binary==2.9.1
 pycparser==2.20
@@ -48,10 +59,14 @@ requests==2.25.1
 requests-oauthlib==1.3.0
 ruamel.yaml==0.17.10
 ruamel.yaml.clib==0.2.6
+Rx==1.6.1
+shortuuid==1.0.1
 simplejson==3.17.3
+singledispatch==3.6.2
 six==1.16.0
 social-auth-app-django==4.0.0
 social-auth-core==4.1.0
+soupsieve==2.2.1
 sqlparse==0.4.1
 text-unidecode==1.3
 uritemplate==3.0.1

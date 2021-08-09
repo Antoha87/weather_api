@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 print('Created', cat)
 
                 for _ in range(random.randint(5, 10)):
-                    Goods.objects.create(name=fake.name(), category=cat, price=random.randint(1, 100))
+                    Goods.objects.create(name=fake.name(), category=cat, price=random.randint(1, 100), image=fake.image_url())
                 print('Created goods')
 
         print("Finished filling db")

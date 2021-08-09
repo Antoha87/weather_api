@@ -25,6 +25,9 @@ fill_crypto_db:
 fill_users_db:
 	docker-compose run --rm django python3 weather_app/manage.py fill_users_db
 
+fill_shawarma_db:
+	docker-compose run --rm django python3 weather_app/manage.py fill_shawarma_db
+
 process_parsed:
 	docker-compose run --rm django python3 weather_app/manage.py process_parsed
 

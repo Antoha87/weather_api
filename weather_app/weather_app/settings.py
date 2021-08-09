@@ -9,15 +9,16 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+def show_toolbar(request):
+    return True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -30,11 +31,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    #own app
+    # own app
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,25 +45,27 @@ INSTALLED_APPS = [
     'django_mptt_admin',
     'djoser',
 
-    #our app
+    # our app
     'weather',
     'relations',
     'currency',
+    'shawarma',
 
-    #3th party app
+    # 3th party app
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'drf_yasg',
     'corsheaders',
     'mptt',
+    'graphene_django',
 
-    #debug
+    # debug
     'debug_toolbar',
 ]
 
-
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -72,9 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
-
 
 CELERY_BEAT_SCHEDULE = {
     'update_rates': {
@@ -104,7 +104,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'weather_app.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -144,7 +143,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -157,7 +155,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -206,7 +203,13 @@ REST_FRAMEWORK = {
 
 INTERNAL_IPS = [
     '127.0.0.1',
+    '0.0.0.0',
+    'localhost'
 ]
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+}
 
 CITIES = ['New Delhi', 'Ottawa', 'Kiev', 'Odessa', 'London', 'Moscow', 'Barcelona']
 
@@ -217,4 +220,13 @@ CRYPTOCURRENCY_ACCESS_KEY = '17f297c1-c190-4f50-9651-d0c4752ff327'
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
+}
+
+# MEDIA_URL = 'image/'
+# MEDIA_ROOT = '/weather_api/image/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+GRAPHENE = {
+    "SCHEMA": "shawarma.schema.schema",
 }

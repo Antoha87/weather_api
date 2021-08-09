@@ -20,6 +20,13 @@ class CartAdminInline(admin.StackedInline):
 
 class GoodsAdmin(admin.ModelAdmin):
     list_display = ['name', 'category']
+    readonly_fields = ('thumbnail_preview',)
+
+    def thumbnail_preview(self, obj):
+        return obj.thumbnail_preview
+
+    thumbnail_preview.short_description = 'Thumbnail Preview'
+    thumbnail_preview.allow_tags = True
 
 
 class CartAdmin(admin.ModelAdmin):
