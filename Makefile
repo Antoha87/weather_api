@@ -32,4 +32,10 @@ process_parsed:
 	docker-compose run --rm django python3 weather_app/manage.py process_parsed
 
 export_to_excel:
-	docker-compose run --rm django python3 weather_app/manage.py export_to_excel
+	docker-compose run --rm django python3 weather_app/manage.py export_to_excel\
+
+collectstatic:
+	docker-compose run --rm django python3 weather_app/manage.py collectstatic
+
+help:
+	docker-compose run --rm django python3 weather_app/manage.py

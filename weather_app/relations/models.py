@@ -58,7 +58,7 @@ class Goods(BaseModel, models.Model):
     @property
     def thumbnail_preview(self):
         if self.image:
-            return mark_safe('<img src="{}" width="300" height="300" />'.format(self.image))
+            return mark_safe('<img src="/media/{}" width="300" height="300" />'.format(self.image))
         return ""
 
     def __str__(self):
