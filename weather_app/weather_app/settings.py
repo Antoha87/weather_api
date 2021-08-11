@@ -20,6 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 def show_toolbar(request):
     return True
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     # own app
+    "corsheaders",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,9 +58,12 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'drf_yasg',
-    'corsheaders',
+    # 'corsheaders',
     'mptt',
     'graphene_django',
+
+    # AWS
+    'storages',
 
     # debug
     'debug_toolbar',
@@ -83,7 +88,7 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'weather_app.urls'
 
@@ -108,12 +113,6 @@ WSGI_APPLICATION = 'weather_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'test.db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -159,8 +158,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -183,6 +180,8 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 
     'DEFAULT_THROTTLE_CLASSES': [
@@ -194,11 +193,6 @@ REST_FRAMEWORK = {
         'anon': '100/day',
         'user': '1000/day'
     },
-
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
 }
 
 INTERNAL_IPS = [
@@ -222,11 +216,25 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
 }
 
-# MEDIA_URL = 'image/'
-# MEDIA_ROOT = '/weather_api/image/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
 GRAPHENE = {
     "SCHEMA": "shawarma.schema.schema",
 }
+
+# AWS S3 settings
+
+AWS_ACCESS_KEY_ID = 'AKIAVNVDJZDB2RWCJWHG'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'djangobucket2'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', }
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'weather_app.storages.MediaStore'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'

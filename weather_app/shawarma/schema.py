@@ -27,19 +27,6 @@ class Query(graphene.ObjectType):
     ingredient = graphene.relay.Node.Field(IngredientNode)
     all_ingredients = filter.DjangoFilterConnectionField(IngredientNode)
 
-    # shawarmas = graphene.List(ShawarmaType)
-    # ingredients = graphene.List(IngredientType)
-    # shawarma = graphene.Field(ShawarmaType, id=graphene.Int())
-    #
-    # def resolve_shawarmas(self, info, **kwargs):
-    #     return Shawarma.objects.all()
-    #
-    # def resolve_shawarma(self, info, id=id):
-    #     return Shawarma.objects.get(pk=id)
-    #
-    # def resolve_ingredients(self, info, **kwargs):
-    #     return Ingredient.objects.all()
-
 
 schema = graphene.Schema(query=Query)
 
