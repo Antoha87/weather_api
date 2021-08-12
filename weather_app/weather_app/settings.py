@@ -242,7 +242,7 @@ if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
 else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_ROOT = '/media'
     MEDIA_URL = '/media/'
     STATIC_ROOT = '/static'
     STATIC_URL = '/static/'

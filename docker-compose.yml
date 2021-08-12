@@ -13,11 +13,12 @@ services:
     build: .
     command: bash -c "python3 /app/weather_app/manage.py makemigrations
                       && python3 /app/weather_app/manage.py migrate
-                      && cd /app/weather_app && gunicorn weather_app.wsgi:application --bind 0.0.0.0:8000"
+                      && cd /app/weather_app && gunicorn --workers=2 weather_app.wsgi:application --bind 0.0.0.0:8000"
 #                      && python3 /app/weather_app/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
       - /static:/static
+      - /media:/media
     ports:
       - "8000:8000"
     depends_on:
@@ -77,6 +78,7 @@ services:
     container_name: weather_nginx
     volumes:
       - /static:/static
+      - /media:/media
 
 volumes:
   postgres_data:
