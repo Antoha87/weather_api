@@ -74,7 +74,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -222,19 +224,33 @@ GRAPHENE = {
 
 # AWS S3 settings
 
-AWS_ACCESS_KEY_ID = 'AKIAVNVDJZDB2RWCJWHG'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'djangobucket2'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+if not DEBUG:
+    AWS_ACCESS_KEY_ID = 'AKIAVNVDJZDB2RWCJWHG'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_STORAGE_BUCKET_NAME = 'djangobucket2'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', }
-AWS_DEFAULT_ACL = 'public-read'
-AWS_LOCATION = 'static'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', }
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_LOCATION = 'static'
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'weather_app.storages.MediaStore'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'weather_app.storages.MediaStore'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+    STATIC_ROOT = '/static'
+    STATIC_URL = '/static/'
+
+#Caching
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+
+CORS_ORIGIN_ALLOW_ALL = True
