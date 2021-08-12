@@ -17,6 +17,7 @@ services:
 #                      && python3 /app/weather_app/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
+      - /static:/static
     ports:
       - "8000:8000"
     depends_on:
@@ -74,6 +75,8 @@ services:
     ports:
       - "80:80"
     container_name: weather_nginx
+    volumes:
+      - /static:/static
 
 volumes:
   postgres_data:
