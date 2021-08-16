@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Push to server
+        uses: weather_api/ssh-action@main
         with:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USERNAME }}
