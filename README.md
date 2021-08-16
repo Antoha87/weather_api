@@ -1,5 +1,5 @@
 
-# weather_api  
+# Weather_api  
 
 ## Installation 
 
